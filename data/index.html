@@ -1,0 +1,1086 @@
+<!doctype html>
+<html lang="en-AU" data-lens="general">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Bolun (Eric) Cui · Technology, Data &amp; AI</title>
+<meta name="description" content="Bolun (Eric) Cui: technology, data and AI leader in Melbourne.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script>
+/* Version comes from the link: /data/ or /tech/ folders when deployed; #data, #tech or ?v=data when previewing locally. */
+document.documentElement.classList.add('js');
+(function () {
+  function pick() {
+    var p = location.pathname.toLowerCase(), h = (location.hash || '').replace('#', '').toLowerCase(), q = '';
+    try { q = (new URLSearchParams(location.search).get('v') || '').toLowerCase(); } catch (e) {}
+    var lens = 'general';
+    if (/\/data(\/|\/index\.html)?$/.test(p) || h === 'data' || q === 'data') lens = 'data';
+    else if (/\/tech(\/|\/index\.html)?$/.test(p) || h === 'tech' || q === 'tech') lens = 'tech';
+    document.documentElement.setAttribute('data-lens', lens);
+  }
+  pick();
+  window.addEventListener('hashchange', function () { pick(); if (window.__onLens) window.__onLens(); });
+  try { var t = localStorage.getItem('theme'); if (t) document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+})();
+</script>
+<style>
+:root {
+  --bg: #f6f3ee; --surface: #ffffff; --surface-2: #fbf9f5; --ink: #14161a; --soft: #4a4f58; --muted: #7c818b;
+  --line: #e7e1d7; --accent: #c17a2b; --accent-ink: #8f5717; --accent-2: #2c7c84; --glow: rgba(193,122,43,.18);
+  --shadow: 0 1px 2px rgba(20,22,26,.05), 0 8px 30px rgba(20,22,26,.07);
+  --hero: #0b0d10; --hero-ink: #f3efe8; --hero-soft: #b9b4ab;
+  --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --display: "Inter Tight", "Inter", system-ui, sans-serif;
+  --serif: "Instrument Serif", Charter, Georgia, serif;
+  --r: 22px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1013; --surface: #161a1f; --surface-2: #12151a; --ink: #f1ede6; --soft: #c3beb4; --muted: #8e8981;
+    --line: #272b32; --accent: #e3a659; --accent-ink: #f0bd7a; --accent-2: #63c4cb; --glow: rgba(227,166,89,.16);
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 34px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1013; --surface: #161a1f; --surface-2: #12151a; --ink: #f1ede6; --soft: #c3beb4; --muted: #8e8981;
+  --line: #272b32; --accent: #e3a659; --accent-ink: #f0bd7a; --accent-2: #63c4cb; --glow: rgba(227,166,89,.16);
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 34px rgba(0,0,0,.35);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.6;
+       -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+.container { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+::selection { background: var(--accent); color: #fff; }
+
+/* Versions: an element tagged data-show appears only in the versions it names. */
+html[data-lens="general"] [data-show]:not([data-show~="general"]),
+html[data-lens="data"] [data-show]:not([data-show~="data"]),
+html[data-lens="tech"] [data-show]:not([data-show~="tech"]) { display: none !important; }
+
+/* Progress bar and nav */
+.progress { position: fixed; inset: 0 0 auto 0; height: 3px; z-index: 60; background: linear-gradient(90deg, var(--accent), var(--accent-2)); transform-origin: 0 50%; transform: scaleX(0); }
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; transition: background .3s, box-shadow .3s, color .3s; color: var(--hero-ink); }
+.nav.solid { background: color-mix(in srgb, var(--bg) 82%, transparent); backdrop-filter: saturate(160%) blur(14px); -webkit-backdrop-filter: saturate(160%) blur(14px); box-shadow: 0 1px 0 var(--line); color: var(--ink); }
+.nav .container { display: flex; align-items: center; justify-content: space-between; height: 66px; }
+.brand { font-family: var(--display); font-weight: 700; font-size: 18px; letter-spacing: -.01em; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+.brand .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--glow); }
+.links { display: flex; gap: 6px; align-items: center; }
+.links a { text-decoration: none; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; padding: 8px 12px; border-radius: 999px; opacity: .78; transition: opacity .2s, background .2s; }
+.links a:hover { opacity: 1; }
+.links a.active { opacity: 1; color: var(--accent); }
+.nav-actions { display: flex; gap: 8px; align-items: center; }
+.icon-btn { width: 38px; height: 38px; border-radius: 50%; border: 1px solid color-mix(in srgb, currentColor 22%, transparent); background: transparent; display: grid; place-items: center; cursor: pointer; }
+.icon-btn svg { width: 18px; height: 18px; }
+.pill-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px; background: var(--accent); color: #1a1208; font-weight: 600; font-size: 14px; text-decoration: none; border: 0; cursor: pointer; transition: transform .2s, box-shadow .2s; }
+.pill-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px var(--glow); }
+.pill-btn.ghost { background: transparent; color: inherit; border: 1px solid color-mix(in srgb, currentColor 30%, transparent); }
+
+/* Hero */
+.hero { position: relative; min-height: 100svh; background: radial-gradient(1200px 600px at 78% 18%, rgba(227,166,89,.16), transparent 60%), radial-gradient(900px 600px at 10% 90%, rgba(99,196,203,.12), transparent 60%), var(--hero); color: var(--hero-ink); overflow: hidden; display: flex; align-items: center; }
+.hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .55; }
+.hero .grain { position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.035) 1px, transparent 1px); background-size: 3px 3px; pointer-events: none; }
+.hero-inner { position: relative; z-index: 2; display: grid; grid-template-columns: 290px 1fr; gap: 56px; align-items: center; padding-top: 110px; padding-bottom: 90px; }
+.card-id { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: var(--r); padding: 22px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.avatar { position: relative; width: 112px; height: 112px; border-radius: 50%; margin-bottom: 16px; background: conic-gradient(from 210deg, var(--accent), #63c4cb, var(--accent)); padding: 3px; }
+.avatar .inner { width: 100%; height: 100%; border-radius: 50%; background: #15181d; display: grid; place-items: center; font-family: var(--display); font-weight: 700; font-size: 30px; letter-spacing: .02em; color: var(--hero-ink); overflow: hidden; }
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
+.card-id .who { font-family: var(--display); font-weight: 700; font-size: 20px; margin: 0; }
+.card-id .roles { margin: 6px 0 14px; color: var(--hero-soft); font-size: 14px; line-height: 1.55; }
+.status { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; padding: 7px 12px; border-radius: 999px; background: rgba(99,196,203,.12); color: #bfeef1; }
+.status i { width: 8px; height: 8px; border-radius: 50%; background: #5fe0a6; box-shadow: 0 0 0 0 rgba(95,224,166,.6); animation: ping 2s infinite; }
+@keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(95,224,166,.55); } 70% { box-shadow: 0 0 0 10px rgba(95,224,166,0); } 100% { box-shadow: 0 0 0 0 rgba(95,224,166,0); } }
+.kicker { font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: var(--hero-soft); margin: 0 0 18px; display: flex; align-items: center; gap: 10px; }
+.kicker::before { content: ""; width: 28px; height: 1px; background: var(--accent); }
+.headline { font-family: var(--display); font-weight: 700; font-size: clamp(40px, 6.1vw, 84px); line-height: 1.06; letter-spacing: -.028em; margin: 0; }
+.chip { display: inline-block; font-weight: 600; padding: 0 .32em .04em; margin: .06em 0; border-radius: .5em; border: 1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.06); line-height: 1.12; }
+.chip.solid { background: var(--hero-ink); color: #111; border-color: transparent; }
+.chip.amber { background: linear-gradient(120deg, #e3a659, #f2c98f); color: #1a1208; border-color: transparent; }
+.serif { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -.01em; }
+.rotator-line { margin: 26px 0 0; font-size: 19px; color: var(--hero-soft); min-height: 1.6em; }
+.rotator { color: var(--hero-ink); font-weight: 600; border-right: 2px solid var(--accent); padding-right: 3px; }
+.hero-cta { display: flex; gap: 12px; margin-top: 34px; flex-wrap: wrap; }
+.hero .pill-btn.ghost { color: var(--hero-ink); }
+.scroll-cue { position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%); z-index: 2; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--hero-soft); display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.scroll-cue span { width: 1px; height: 38px; background: linear-gradient(var(--accent), transparent); animation: drip 2.2s infinite; }
+@keyframes drip { 0% { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+
+/* Marquee */
+.marquee { border-block: 1px solid var(--line); background: var(--surface-2); overflow: hidden; padding: 16px 0; }
+.track { display: flex; gap: 46px; width: max-content; animation: slide 46s linear infinite; font-family: var(--display); font-weight: 600; font-size: 17px; color: var(--soft); white-space: nowrap; }
+.track span::after { content: "✦"; color: var(--accent); margin-left: 46px; font-size: 13px; }
+@keyframes slide { to { transform: translateX(-50%); } }
+
+/* Sections */
+main { display: flex; flex-direction: column; }
+html[data-lens="general"] main > section { order: var(--gen, 50); }
+html[data-lens="data"] main > section { order: var(--data, 50); }
+html[data-lens="tech"] main > section { order: var(--tech, 50); }
+section.block { padding: 110px 0; position: relative; }
+.eyebrow { font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: var(--accent-ink); font-weight: 600; margin: 0 0 14px; }
+.big-title { font-family: var(--display); font-weight: 800; font-size: clamp(46px, 9vw, 140px); letter-spacing: -.045em; line-height: .95; margin: 0 0 40px; will-change: transform; text-wrap: balance; }
+.big-title .serif { color: var(--accent); }
+.big-title.outline { -webkit-text-stroke: 1.2px var(--ink); color: transparent; }
+.lede { font-size: 20px; color: var(--soft); max-width: 720px; margin: 0 0 46px; }
+.lede b { color: var(--ink); font-weight: 600; }
+
+/* Reveal */
+.js .reveal { opacity: 0; transform: translateY(26px); transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); }
+.js .reveal.in { opacity: 1; transform: none; }
+.reveal.d1 { transition-delay: .08s; } .reveal.d2 { transition-delay: .16s; } .reveal.d3 { transition-delay: .24s; }
+
+/* Impact */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 26px 24px 24px; box-shadow: var(--shadow); position: relative; overflow: hidden; }
+.stat::after { content: ""; position: absolute; inset: auto -40% -60% auto; width: 180px; height: 180px; border-radius: 50%; background: radial-gradient(var(--glow), transparent 70%); }
+.stat .num { font-family: var(--display); font-weight: 800; font-size: clamp(36px, 4.2vw, 54px); letter-spacing: -.035em; line-height: 1; }
+.stat .num .u { font-size: .48em; letter-spacing: -.01em; margin-left: 4px; color: var(--accent-ink); }
+.stat p { margin: 12px 0 0; color: var(--soft); font-size: 15px; line-height: 1.45; }
+.ba { margin-top: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 28px 30px; box-shadow: var(--shadow); }
+.ba h3 { font-family: var(--display); font-size: 20px; margin: 0 0 4px; }
+.ba .sub { color: var(--muted); font-size: 14px; margin: 0 0 20px; }
+.bar-row { display: grid; grid-template-columns: 230px 1fr 130px; gap: 18px; align-items: center; padding: 12px 0; border-top: 1px dashed var(--line); }
+.bar-row:first-of-type { border-top: 0; }
+.bar-row .lbl { font-weight: 600; font-size: 15px; }
+.bars { display: grid; gap: 7px; }
+.bar { height: 12px; border-radius: 999px; background: color-mix(in srgb, var(--muted) 22%, transparent); position: relative; overflow: hidden; }
+.bar i { position: absolute; inset: 0 auto 0 0; width: 0; border-radius: 999px; transition: width 1.4s cubic-bezier(.2,.7,.2,1); }
+.bar.before i { background: color-mix(in srgb, var(--muted) 70%, transparent); }
+.bar.after i { background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
+.bar-row .res { font-family: var(--display); font-weight: 700; font-size: 18px; text-align: right; }
+.bar-row .res small { display: block; font-family: var(--sans); font-weight: 400; font-size: 12.5px; color: var(--muted); }
+.legend { display: flex; gap: 18px; font-size: 13px; color: var(--muted); margin-top: 10px; }
+.legend span::before { content: ""; display: inline-block; width: 18px; height: 8px; border-radius: 4px; margin-right: 7px; vertical-align: middle; background: color-mix(in srgb, var(--muted) 70%, transparent); }
+.legend span.a::before { background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
+
+/* Ask (scripted portfolio chat) */
+.ask-wrap { display: grid; grid-template-columns: 1fr 1.15fr; gap: 40px; align-items: start; }
+.prompts { display: grid; gap: 10px; }
+.prompt { text-align: left; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 15px 18px; cursor: pointer; display: flex; justify-content: space-between; gap: 12px; align-items: center; transition: border-color .2s, transform .2s, box-shadow .2s; font-weight: 500; }
+.prompt:hover { border-color: var(--accent); transform: translateX(4px); box-shadow: var(--shadow); }
+.prompt.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 9%, var(--surface)); }
+.prompt svg { width: 18px; height: 18px; flex: none; color: var(--accent); }
+.device { background: var(--surface); border: 1px solid var(--line); border-radius: 30px; box-shadow: var(--shadow); overflow: hidden; position: sticky; top: 96px; }
+.device-top { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--line); }
+.device-top .av { width: 38px; height: 38px; border-radius: 50%; background: conic-gradient(from 200deg, var(--accent), var(--accent-2), var(--accent)); display: grid; place-items: center; color: #111; font-weight: 700; font-family: var(--display); font-size: 14px; }
+.device-top b { display: block; font-family: var(--display); font-size: 15px; }
+.device-top small { color: var(--muted); font-size: 12.5px; }
+.chat { height: 420px; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; scroll-behavior: smooth; }
+.msg { max-width: 86%; padding: 12px 15px; border-radius: 18px; font-size: 15.5px; line-height: 1.5; animation: pop .35s cubic-bezier(.2,.8,.2,1); }
+.msg.me { align-self: flex-end; background: var(--ink); color: var(--bg); border-bottom-right-radius: 6px; }
+.msg.bot { align-self: flex-start; background: var(--surface-2); border: 1px solid var(--line); border-bottom-left-radius: 6px; }
+.msg.bot .open { display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; font-size: 13.5px; font-weight: 600; color: var(--accent-ink); background: none; border: 0; padding: 0; cursor: pointer; white-space: nowrap; }
+.msg.bot .open svg { width: 15px; height: 15px; }
+.typing { display: inline-flex; gap: 5px; padding: 14px 16px; }
+.typing i { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); animation: bounce 1.2s infinite; }
+.typing i:nth-child(2) { animation-delay: .15s; } .typing i:nth-child(3) { animation-delay: .3s; }
+@keyframes bounce { 0%, 60%, 100% { transform: translateY(0); opacity: .5; } 30% { transform: translateY(-5px); opacity: 1; } }
+@keyframes pop { from { opacity: 0; transform: translateY(8px) scale(.98); } to { opacity: 1; transform: none; } }
+.device-foot { padding: 12px 20px 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12.5px; display: flex; align-items: center; gap: 8px; }
+.device-foot svg { width: 14px; height: 14px; }
+
+/* Work */
+.filters { display: inline-flex; gap: 4px; padding: 5px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); margin-bottom: 30px; flex-wrap: wrap; }
+.filters button { border: 0; background: transparent; padding: 9px 16px; border-radius: 999px; cursor: pointer; font-size: 14px; font-weight: 600; color: var(--soft); transition: background .25s, color .25s; }
+.filters button[aria-selected="true"] { background: var(--ink); color: var(--bg); }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+html[data-lens="general"] .grid .case { order: var(--gen, 9); }
+html[data-lens="data"] .grid .case { order: var(--data, 9); }
+html[data-lens="tech"] .grid .case { order: var(--tech, 9); }
+.case { position: relative; text-align: left; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 24px 24px 22px; cursor: pointer; display: flex; flex-direction: column; min-height: 290px; overflow: hidden; transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s, border-color .35s; box-shadow: var(--shadow); }
+.case::before { content: ""; position: absolute; inset: 0; background: radial-gradient(420px 200px at var(--mx, 50%) var(--my, 0%), var(--glow), transparent 70%); opacity: 0; transition: opacity .35s; pointer-events: none; }
+.case:hover { transform: translateY(-6px); border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); }
+.case:hover::before { opacity: 1; }
+.case.hide { display: none; }
+.case .cat { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.case h3 { font-family: var(--display); font-size: 23px; line-height: 1.2; letter-spacing: -.015em; margin: 10px 0 10px; }
+.case p { color: var(--soft); font-size: 15.5px; margin: 0; }
+.case .metric { margin-top: auto; padding-top: 22px; display: flex; align-items: end; justify-content: space-between; gap: 12px; }
+.case .metric b { font-family: var(--display); font-size: 30px; letter-spacing: -.03em; line-height: 1; }
+.case .metric small { display: block; color: var(--muted); font-size: 13px; margin-top: 4px; }
+.case .go { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; transition: background .25s, color .25s, transform .25s; flex: none; }
+.case:hover .go { background: var(--accent); color: #1a1208; transform: rotate(-45deg); border-color: transparent; }
+.case .go svg { width: 18px; height: 18px; }
+.case.feature { grid-column: span 2; background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 10%, var(--surface)), var(--surface) 55%); }
+
+/* Case dialog */
+dialog.drawer { border: 0; padding: 0; margin: 0 0 0 auto; height: 100%; max-height: 100%; width: min(640px, 100%); background: var(--surface); color: var(--ink); box-shadow: -20px 0 60px rgba(0,0,0,.25); }
+dialog.drawer[open] { animation: drawer .45s cubic-bezier(.2,.8,.2,1); }
+dialog.drawer::backdrop { background: rgba(8,9,11,.5); backdrop-filter: blur(3px); }
+@keyframes drawer { from { transform: translateX(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+.drawer-in { padding: 34px 36px 40px; }
+.drawer-close { position: sticky; top: 0; display: flex; justify-content: flex-end; padding: 16px 18px 0; background: var(--surface); z-index: 2; }
+.drawer .cat { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent-ink); font-weight: 600; }
+.drawer h3 { font-family: var(--display); font-size: 32px; line-height: 1.12; letter-spacing: -.025em; margin: 10px 0 24px; }
+.drawer dl { margin: 0; }
+.drawer dt { font-family: var(--serif); font-style: italic; font-size: 21px; color: var(--accent-ink); margin: 22px 0 6px; }
+.drawer dd { margin: 0; color: var(--soft); }
+.drawer dd.result { color: var(--ink); font-weight: 600; font-size: 18px; }
+.drawer ul { margin: 6px 0 0; padding-left: 18px; }
+.drawer li { margin-bottom: 6px; }
+
+/* Journey */
+.journey { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; padding-top: 34px; }
+.journey .rail { position: absolute; top: 9px; left: 0; right: 0; height: 2px; background: var(--line); border-radius: 2px; }
+.journey .rail i { position: absolute; inset: 0 auto 0 0; width: 0; background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius: 2px; transition: width .2s linear; }
+.step { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 20px 18px; box-shadow: var(--shadow); }
+.step::before { content: ""; position: absolute; top: -32px; left: 18px; width: 14px; height: 14px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); }
+.step.lit::before { background: var(--accent); box-shadow: 0 0 0 6px var(--glow); }
+.step .when { font-family: var(--serif); font-style: italic; font-size: 22px; color: var(--accent-ink); }
+.step p { margin: 6px 0 0; font-size: 15px; color: var(--soft); }
+.step b { color: var(--ink); }
+.journey-result { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 12px; }
+.tagpill { display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); font-size: 14px; color: var(--soft); }
+.tagpill svg { width: 15px; height: 15px; color: var(--accent); }
+
+/* Architecture */
+.arch { display: grid; grid-template-columns: 1.35fr 1fr; gap: 38px; align-items: center; }
+.arch-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); padding: 18px; }
+.stack { display: flex; flex-direction: column; }
+.stack .layer { border: 1px solid var(--line); background: var(--surface-2); border-radius: 14px; padding: 13px 16px; display: flex; flex-direction: column; gap: 1px; }
+.stack .layer b { font-family: var(--display); font-size: 16px; }
+.stack .layer span { color: var(--soft); font-size: 14.5px; line-height: 1.45; }
+.stack .layer.core { background: color-mix(in srgb, var(--accent) 12%, var(--surface)); border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.stack .layer.legacy { border-style: dashed; opacity: .72; }
+.stack .link { position: relative; height: 30px; }
+.stack .link::before, .stack .link::after { content: ""; position: absolute; top: 0; bottom: 0; border-left: 1.5px dashed color-mix(in srgb, var(--muted) 55%, transparent); }
+.stack .link::before { left: 38%; } .stack .link::after { left: 62%; }
+.stack .link.quiet::after { display: none; }
+.stack .link i { position: absolute; left: calc(38% - 4px); width: 9px; height: 9px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--glow); animation: flow 1.9s linear infinite; }
+.stack .link i.up { left: calc(62% - 4px); background: var(--accent-2); animation-direction: reverse; animation-delay: -.9s; }
+.stack .link.quiet i { animation-duration: 3.2s; opacity: .6; }
+@keyframes flow { 0% { top: -4px; opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { top: calc(100% - 5px); opacity: 0; } }
+.principles { display: grid; gap: 12px; }
+.principle { display: flex; gap: 14px; align-items: flex-start; padding: 16px 18px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); }
+.principle .ic { width: 38px; height: 38px; border-radius: 12px; background: color-mix(in srgb, var(--accent) 14%, var(--surface)); color: var(--accent-ink); display: grid; place-items: center; flex: none; }
+.principle .ic svg { width: 19px; height: 19px; }
+.principle b { display: block; font-family: var(--display); font-size: 16.5px; }
+.principle span { color: var(--soft); font-size: 15px; }
+
+/* Approach */
+.approach { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.tile { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 26px 22px; min-height: 250px; box-shadow: var(--shadow); overflow: hidden; transition: transform .35s; }
+.tile:hover { transform: translateY(-5px); }
+.tile .n { font-family: var(--serif); font-style: italic; font-size: 44px; color: var(--accent); line-height: 1; }
+.tile h3 { font-family: var(--display); font-size: 21px; letter-spacing: -.01em; margin: 18px 0 8px; }
+.tile p { margin: 0; color: var(--soft); font-size: 15.5px; }
+.tile svg.bg { position: absolute; right: -18px; bottom: -18px; width: 120px; height: 120px; color: var(--accent); opacity: .08; }
+
+/* Experience */
+.tabs { display: inline-flex; gap: 4px; padding: 5px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); margin-bottom: 30px; box-shadow: var(--shadow); }
+.tabs button { border: 0; background: transparent; padding: 9px 18px; border-radius: 999px; cursor: pointer; font-weight: 600; font-size: 14px; color: var(--soft); }
+.tabs button[aria-selected="true"] { background: var(--accent); color: #1a1208; }
+.panel[hidden] { display: none; }
+.tl { position: relative; padding-left: 34px; }
+.tl::before { content: ""; position: absolute; left: 8px; top: 6px; bottom: 6px; width: 2px; background: linear-gradient(var(--accent), var(--accent-2)); opacity: .5; }
+.tl-item { position: relative; display: grid; grid-template-columns: 1fr auto; gap: 4px 20px; padding: 0 0 30px; }
+.tl-item::before { content: ""; position: absolute; left: -32px; top: 7px; width: 14px; height: 14px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); }
+.tl-item .org { font-family: var(--display); font-weight: 700; font-size: 22px; letter-spacing: -.01em; }
+.tl-item .when { color: var(--muted); font-size: 14.5px; white-space: nowrap; padding-top: 5px; }
+.tl-item .roles { grid-column: 1 / -1; display: grid; gap: 2px; }
+.tl-item .roles div { display: flex; justify-content: space-between; gap: 18px; color: var(--soft); }
+.tl-item .roles i { color: var(--muted); font-style: normal; font-size: 14px; white-space: nowrap; }
+.tl-item .note { grid-column: 1 / -1; color: var(--muted); font-size: 15px; margin-top: 4px; }
+.cred-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.cred { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 20px; box-shadow: var(--shadow); }
+.cred b { display: block; font-family: var(--display); font-size: 17px; }
+.cred span { color: var(--muted); font-size: 14.5px; }
+
+/* Contact */
+.contact { background: radial-gradient(900px 500px at 80% 0%, rgba(227,166,89,.18), transparent 60%), radial-gradient(800px 500px at 0% 100%, rgba(99,196,203,.12), transparent 60%), var(--hero); color: var(--hero-ink); padding: 120px 0 60px; }
+.contact .big-title { color: var(--hero-ink); }
+.contact-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 50px; align-items: end; }
+.contact p.lede { color: var(--hero-soft); }
+.contact-list { display: grid; gap: 12px; }
+.c-item { display: flex; align-items: center; gap: 14px; padding: 16px 18px; border-radius: 18px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); text-decoration: none; transition: background .2s, transform .2s; }
+.c-item:hover { background: rgba(255,255,255,.09); transform: translateX(4px); }
+.c-item .ic { width: 42px; height: 42px; border-radius: 50%; background: var(--accent); color: #1a1208; display: grid; place-items: center; flex: none; }
+.c-item .ic svg { width: 19px; height: 19px; }
+.c-item small { display: block; color: var(--hero-soft); font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; }
+.c-item .copy { margin-left: auto; font-size: 13px; color: var(--hero-soft); }
+.foot { padding-right: 76px; margin-top: 80px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,.1); display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; font-size: 13.5px; color: var(--hero-soft); }
+
+.fab { position: fixed; right: 22px; bottom: 22px; z-index: 40; width: 58px; height: 58px; border-radius: 50%; border: 0; background: var(--ink); color: var(--bg); display: grid; place-items: center; cursor: pointer; box-shadow: 0 12px 30px rgba(0,0,0,.25); transition: transform .25s, opacity .3s; opacity: 0; pointer-events: none; }
+.fab.show { opacity: 1; pointer-events: auto; }
+.fab:hover { transform: scale(1.06); }
+.fab svg { width: 24px; height: 24px; }
+.fab::after { content: ""; position: absolute; top: 6px; right: 6px; width: 11px; height: 11px; border-radius: 50%; background: var(--accent); border: 2px solid var(--ink); }
+
+
+/* ---------- Capabilities ---------- */
+.cap-intro { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: 26px; }
+.cap-intro p { margin: 0; color: var(--soft); font-size: 18px; max-width: 640px; }
+.cap-ic { width: 40px; height: 40px; border-radius: 12px; background: color-mix(in srgb, var(--accent) 14%, var(--surface)); color: var(--accent-ink); display: grid; place-items: center; flex: none; }
+.cap-ic svg { width: 20px; height: 20px; }
+.ck { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
+.ck li { position: relative; padding-left: 26px; font-size: 15.5px; line-height: 1.45; color: var(--ink); }
+.ck li::before { content: ""; position: absolute; left: 2px; top: 4px; width: 14px; height: 14px; border-radius: 50%; background: var(--accent); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1a11 11 0 1 0 0 22 11 11 0 0 0 0-22zm-1.4 15.6-4.2-4.2 1.4-1.4 2.8 2.8 6-6 1.4 1.4z'/%3E%3C/svg%3E") center/contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1a11 11 0 1 0 0 22 11 11 0 0 0 0-22zm-1.4 15.6-4.2-4.2 1.4-1.4 2.8 2.8 6-6 1.4 1.4z'/%3E%3C/svg%3E") center/contain no-repeat; }
+.ck .st { display: inline-block; margin-left: 6px; font-size: 11.5px; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
+.tools { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.tools span { font-size: 13px; padding: 5px 11px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--line); color: var(--soft); }
+.practice { display: flex; gap: 10px; align-items: flex-start; margin-top: 18px; padding-top: 16px; border-top: 1px dashed var(--line); font-size: 14.5px; color: var(--soft); }
+.practice b { flex: none; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent-ink); padding-top: 2px; }
+
+.cap-a { display: grid; grid-template-columns: 340px 1fr; gap: 22px; align-items: start; }
+.cap-list { display: grid; gap: 8px; }
+.cap-item { text-align: left; display: flex; gap: 14px; align-items: flex-start; padding: 13px 15px; border-radius: 16px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; transition: border-color .2s, background .2s, transform .2s; }
+.cap-item:hover { transform: translateX(3px); }
+.cap-item.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 9%, var(--surface)); }
+.cap-item b { display: block; font-family: var(--display); font-size: 16px; line-height: 1.25; }
+.cap-item small { display: block; color: var(--soft); font-size: 13.5px; line-height: 1.4; margin-top: 2px; }
+.cap-panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 30px 32px; box-shadow: var(--shadow); position: sticky; top: 90px; }
+.cap-panel .head { display: flex; gap: 16px; align-items: center; }
+.cap-panel .head .cap-ic { width: 54px; height: 54px; border-radius: 16px; }
+.cap-panel .head .cap-ic svg { width: 26px; height: 26px; }
+.cap-panel h3 { margin: 0; font-family: var(--display); font-size: 28px; letter-spacing: -.02em; line-height: 1.15; }
+.cap-panel .one { margin: 6px 0 0; color: var(--soft); font-size: 17px; }
+.cap-metric { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin: 22px 0 20px; padding: 16px 20px; border-radius: 16px; background: color-mix(in srgb, var(--accent) 8%, var(--surface)); }
+.cap-metric b { font-family: var(--display); font-weight: 800; font-size: 42px; letter-spacing: -.035em; line-height: 1; }
+.cap-metric span { color: var(--soft); font-size: 16px; }
+.cap-panel .ck { grid-template-columns: 1fr 1fr; gap: 10px 26px; }
+
+
+/* ---------- Polish pass (15 Nov) ---------- */
+section.block { padding: 96px 0; }
+section.band { background: color-mix(in srgb, var(--accent) 5%, var(--bg)); border-block: 1px solid var(--line); }
+.cred-line { margin: 14px 0 0; font-size: 14.5px; color: var(--hero-soft); display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.cred-line span { font-size: 11.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); }
+.habits { margin-top: 34px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.habits .habits-h { grid-column: 1 / -1; margin: 0 0 2px; font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: var(--accent-ink); font-weight: 600; }
+.habits > div { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px 18px 20px; }
+.habits b { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 26px; color: var(--accent); line-height: 1; }
+.habits h3 { margin: 10px 0 6px; font-family: var(--display); font-size: 17px; letter-spacing: -.01em; line-height: 1.25; }
+.habits p { margin: 0; font-size: 14.5px; color: var(--soft); }
+@media (max-width: 980px) { .habits { grid-template-columns: 1fr 1fr; } }
+@media (max-height: 940px) { .scroll-cue { display: none; } }
+@media (max-width: 640px) { .habits { grid-template-columns: 1fr; } section.block { padding: 72px 0; } }
+
+/* Career highlights */
+.tl-item .hl { grid-column: 1 / -1; margin: 8px 0 0; padding-left: 18px; color: var(--soft); font-size: 15px; }
+.tl-item .hl li { margin-bottom: 3px; }
+
+@media (max-width: 980px) {
+  .cap-a { grid-template-columns: 1fr; }
+  .cap-list { display: flex; overflow-x: auto; gap: 8px; padding-bottom: 6px; scrollbar-width: none; }
+  .cap-list::-webkit-scrollbar { display: none; }
+  .cap-item { flex: none; align-items: center; padding: 10px 14px; }
+  .cap-item small { display: none; }
+  .cap-item .cap-ic { width: 32px; height: 32px; border-radius: 10px; }
+  .cap-panel { position: static; padding: 22px; }
+}
+@media (max-width: 640px) {
+  .cap-panel .ck { grid-template-columns: 1fr; }
+  .cap-metric b { font-size: 34px; }
+}
+
+@media (max-width: 980px) {
+  .hero { align-items: flex-start; }
+  .hero-inner { grid-template-columns: 1fr; gap: 30px; padding-top: 92px; }
+  .scroll-cue { display: none; }
+  .card-id { display: flex; gap: 16px; align-items: center; max-width: 520px; }
+  .avatar { margin: 0; width: 84px; height: 84px; flex: none; }
+  .stats { grid-template-columns: 1fr 1fr; }
+  .ask-wrap, .arch, .contact-grid { grid-template-columns: 1fr; }
+  .device { position: relative; top: 0; }
+  .grid { grid-template-columns: 1fr 1fr; }
+  .case.feature { grid-column: auto; }
+  .journey { grid-template-columns: 1fr; padding-top: 0; padding-left: 34px; }
+  .journey .rail { top: 0; bottom: 0; left: 9px; right: auto; width: 2px; height: auto; }
+  .journey .rail i { width: 100% !important; height: var(--h, 0); inset: 0 0 auto 0; }
+  .step::before { top: 22px; left: -32px; }
+  .approach { grid-template-columns: 1fr 1fr; }
+  .cred-grid { grid-template-columns: 1fr 1fr; }
+  .links { display: none; }
+}
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+  .container { padding-left: 16px; padding-right: 16px; }
+  section.block { padding: 80px 0; }
+  .card-id .roles { margin-bottom: 10px; }
+  .grid, .approach, .cred-grid { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .stat { padding: 18px 16px; }
+  .stat .num { font-size: 34px; }
+  .stat p { font-size: 13.5px; }
+  .card-id { padding: 16px; }
+  .card-id .roles { font-size: 13px; }
+  .case.feature { grid-column: auto; }
+  .bar-row { grid-template-columns: 1fr; gap: 8px; }
+  .bar-row .res { text-align: left; }
+  .lede { font-size: 18px; }
+  .chat { height: 380px; }
+  .tl-item { grid-template-columns: 1fr; }
+  .tl-item .roles div { flex-direction: column; gap: 0; }
+  .drawer-in { padding: 20px 20px 34px; }
+  .drawer h3 { font-size: 27px; }
+  .nav .pill-btn { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .js .reveal { opacity: 1; transform: none; }
+  .stack .link i { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<nav class="nav" id="nav" aria-label="Main">
+  <div class="container">
+    <a class="brand" href="#top"><span class="dot"></span>Bolun Cui</a>
+    <div class="links" id="links">
+      <a href="#impact">Impact</a>
+      <a href="#capabilities">Capabilities</a>
+      <a href="#work">Work</a>
+      <a href="#ask">Ask</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <button class="icon-btn" id="themeBtn" aria-label="Switch light or dark theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <a class="pill-btn" href="#contact">Let&rsquo;s talk</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <canvas id="net" aria-hidden="true"></canvas>
+  <div class="grain"></div>
+  <div class="container hero-inner">
+    <aside class="card-id reveal">
+      <div class="avatar"><div class="inner"><img src="photo.jpg" alt="Bolun (Eric) Cui" onerror="this.remove()"><span aria-hidden="true">EC</span></div></div>
+      <div>
+        <p class="who">Bolun (Eric) Cui</p>
+        <p class="roles" data-show="general">Data &amp; IT Manager<br>Technology, data &amp; AI<br>Reports to the CEO, presents to the board</p>
+        <p class="roles" data-show="data">Data &amp; IT Manager<br>Data, analytics &amp; AI in production<br>Reports to the CEO, presents to the board</p>
+        <p class="roles" data-show="tech">Data &amp; IT Manager<br>Whole-of-ICT for a 24/7 organisation<br>Reports to the CEO, presents to the board</p>
+        <span class="status"><i></i>Open to new roles &middot; Melbourne</span>
+      </div>
+    </aside>
+    <div>
+      <p class="kicker reveal d1">Technology &middot; Data &middot; AI</p>
+      <h1 class="headline reveal d2" data-show="general">Hi, I&rsquo;m <span class="chip">Eric</span>, a <span class="chip solid">technology, data &amp; AI</span> leader in <span class="chip">Melbourne</span> who still <span class="serif">builds.</span></h1>
+      <h1 class="headline reveal d2" data-show="data">Hi, I&rsquo;m <span class="chip">Eric</span>. I turn <span class="chip solid">data</span> into <span class="serif">decisions,</span> and put <span class="chip amber">AI</span> to work.</h1>
+      <h1 class="headline reveal d2" data-show="tech">Hi, I&rsquo;m <span class="chip">Eric</span>. I run <span class="chip solid">technology</span> for an organisation that <span class="serif">never closes,</span> on a <span class="chip amber">lean</span> team.</h1>
+      <p class="rotator-line reveal d3">Known for <span class="rotator" id="rotator">results people can measure</span></p>
+      <p class="cred-line reveal d3"><span>Previously</span>Victorian Government delivery (via Wipro) &middot; Victoria University &middot; EY</p>
+      <div class="hero-cta reveal d3">
+        <a class="pill-btn" href="#work">See the work
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+        <a class="pill-btn ghost" href="#ask">Ask my portfolio</a>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue" aria-hidden="true">Scroll<span></span></div>
+</header>
+
+<div class="marquee" aria-hidden="true">
+  <div class="track" id="track">
+    <span>Salesforce</span><span>Agentforce</span><span>Microsoft Copilot Studio</span><span>Microsoft 365 Copilot</span><span>Azure</span><span>Data Cloud</span><span>Power BI</span><span>Tableau</span><span>Entra ID</span><span>Essential Eight</span><span>PRINCE2 Agile</span><span>MCP integrations</span><span>Event-driven integration</span><span>AI governance</span>
+  </div>
+</div>
+
+<main>
+
+<!-- IMPACT -->
+<section class="block" id="impact" style="--gen:1; --data:1; --tech:1">
+  <div class="container">
+    <p class="eyebrow reveal">Impact</p>
+    <h2 class="big-title reveal" data-slide>Results, <span class="serif">not slides.</span></h2>
+    <p class="lede reveal" data-show="general">I lead technology, data and AI for a regulated, 24/7 organisation of <b>several hundred staff</b>, reporting to the Chief Executive and presenting to the board. These are a few numbers I&rsquo;m proud of.</p>
+    <p class="lede reveal" data-show="data">I lead data, analytics and AI for a regulated, 24/7 organisation of <b>several hundred staff</b>, reporting to the Chief Executive and presenting to the board: governed data, models the executive acts on, and AI agents in production.</p>
+    <p class="lede reveal" data-show="tech">I run the whole technology function for a regulated, 24/7 organisation of <b>several hundred staff</b>: strategy, platforms, data and AI, security, service and vendors, with a product-led team, a managed service provider and delivery partners.</p>
+
+    <div class="stats" data-show="general">
+      <div class="stat reveal"><div class="num" data-count="30"><span class="v">0</span><span class="u">min</span></div><p>Weekly billing run, down from days of manual work, by an AI agent I built</p></div>
+      <div class="stat reveal d1"><div class="num" data-count="70" data-pre="~"><span class="v">0</span></div><p>Automations, integrations and AI agents in production</p></div>
+      <div class="stat reveal d2"><div class="num" data-count="100"><span class="v">0</span><span class="u">%</span></div><p>Of staff on Microsoft 365 Copilot, under policy, within a year</p></div>
+      <div class="stat reveal d3"><div class="num" data-count="70"><span class="v">0</span><span class="u">%+</span></div><p>Faster delivery with AI-assisted development (business case said 40%)</p></div>
+    </div>
+    <div class="stats" data-show="data">
+      <div class="stat reveal"><div class="num" data-count="1" data-pre="$"><span class="v">0</span><span class="u">M+</span></div><p>Less overtime, from predictive workforce analytics</p></div>
+      <div class="stat reveal d1"><div class="num" data-count="80"><span class="v">0</span><span class="u">%</span></div><p>Faster reporting turnaround after rebuilding the platform on Azure</p></div>
+      <div class="stat reveal d2"><div class="num" data-count="30"><span class="v">0</span><span class="u">%</span></div><p>More accurate and faster reporting, from data-quality controls</p></div>
+      <div class="stat reveal d3"><div class="num" data-count="30"><span class="v">0</span><span class="u">min</span></div><p>Weekly billing run, down from days of manual work, by an AI agent I built</p></div>
+    </div>
+    <div class="stats" data-show="tech">
+      <div class="stat reveal"><div class="num" data-count="2"><span class="v">0</span><span class="u">yrs</span></div><p>Under budget, two years running</p></div>
+      <div class="stat reveal d1"><div class="num" data-count="50"><span class="v">0</span><span class="u">%</span></div><p>Lower telephony cost, after re-platforming with CRM integration</p></div>
+      <div class="stat reveal d2"><div class="num" data-count="60"><span class="v">0</span><span class="u">%</span></div><p>Less payroll processing effort, every cycle</p></div>
+      <div class="stat reveal d3"><div class="num" data-count="1" data-pre="$"><span class="v">0</span><span class="u">M+</span></div><p>Less overtime, from predictive workforce analytics</p></div>
+    </div>
+
+    <div class="ba reveal">
+      <h3>Time given back</h3>
+      <p class="sub">Before and after, from work I led. Bars are to scale within each row.</p>
+      <div class="bar-row" data-show="general data">
+        <div class="lbl">Weekly billing run</div>
+        <div class="bars"><div class="bar before"><i data-w="100"></i></div><div class="bar after"><i data-w="1.2"></i></div></div>
+        <div class="res">30 min<small>99% less effort</small></div>
+      </div>
+      <div class="bar-row">
+        <div class="lbl">Payroll processing, per cycle</div>
+        <div class="bars"><div class="bar before"><i data-w="100"></i></div><div class="bar after"><i data-w="40"></i></div></div>
+        <div class="res">&minus;60%<small>effort per cycle</small></div>
+      </div>
+      <div class="bar-row" data-show="general data tech">
+        <div class="lbl">Reporting turnaround</div>
+        <div class="bars"><div class="bar before"><i data-w="100"></i></div><div class="bar after"><i data-w="20"></i></div></div>
+        <div class="res">&minus;80%<small>after the Azure rebuild</small></div>
+      </div>
+      <div class="bar-row" data-show="data tech">
+        <div class="lbl">Month-end manual input</div>
+        <div class="bars"><div class="bar before"><i data-w="100"></i></div><div class="bar after"><i data-w="1"></i></div></div>
+        <div class="res">Automated<small>was about 5 days a month</small></div>
+      </div>
+      <div class="legend"><span>Before</span><span class="a">After</span></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- CAPABILITIES -->
+<section class="block band" id="capabilities" style="--gen:2; --data:2; --tech:2">
+  <div class="container">
+    <p class="eyebrow reveal">Capabilities</p>
+    <h2 class="big-title reveal" data-slide>What I <span class="serif">do,</span> area by area.</h2>
+    <div class="cap-intro reveal">
+      <p data-show="general">Eight areas I lead, each with its headline result and the proof behind it.</p>
+      <p data-show="data">Eight areas across data and AI, each with its headline result and the proof behind it.</p>
+      <p data-show="tech">Eight areas across the technology function, each with its headline result and the proof behind it.</p>
+    </div>
+    <div id="capWrap"></div>
+    <div class="habits reveal">
+      <p class="habits-h">How I lead</p>
+      <div><b>01</b><h3>One front door</h3><p>All technology work comes through one intake and one roadmap, so trade-offs are made in the open.</p></div>
+      <div><b>02</b><h3>Governance is how we say yes</h3><p>Settle privacy, accuracy and accountability first, and useful AI can move quickly.</p></div>
+      <div><b>03</b><h3>Grow the team with the work</h3><p>I restructured around products, brought in a product manager and coach the analysts, so each person owns an outcome, not a queue.</p></div>
+      <div><b>04</b><h3>Build alongside the team</h3><p>I set the direction and still work as architect and developer when it matters.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ASK -->
+<section class="block" id="ask" style="--gen:5; --data:5; --tech:5">
+  <div class="container">
+    <p class="eyebrow reveal">Ask my portfolio</p>
+    <h2 class="big-title reveal" data-slide>Pick a <span class="serif">question.</span></h2>
+    <div class="ask-wrap">
+      <div>
+        <p class="lede reveal" style="margin-bottom:24px">A small scripted demo in the spirit of the agents I build. Choose what matters most to you and I&rsquo;ll answer in a sentence or three.</p>
+        <div class="prompts" id="prompts"></div>
+      </div>
+      <div class="device reveal d1">
+        <div class="device-top"><div class="av" style="background: url(photo.jpg) center/cover, conic-gradient(from 200deg, var(--accent), var(--accent-2), var(--accent)); color: transparent;">EC</div><div><b>Eric&rsquo;s portfolio</b><small>Usually replies instantly</small></div></div>
+        <div class="chat" id="chat" aria-live="polite"></div>
+        <div class="device-foot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Scripted answers I wrote myself. Nothing you click leaves this page.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="block" id="work" style="--gen:3; --data:3; --tech:3">
+  <div class="container">
+    <p class="eyebrow reveal">Selected work</p>
+    <h2 class="big-title reveal" data-slide>Case <span class="serif">studies.</span></h2>
+    <div class="filters reveal" role="tablist" aria-label="Filter case studies" id="filters">
+      <button role="tab" aria-selected="true" data-f="all">All</button>
+      <button role="tab" aria-selected="false" data-f="ai">AI</button>
+      <button role="tab" aria-selected="false" data-f="platforms">Platforms</button>
+      <button role="tab" aria-selected="false" data-f="ops">Operations</button>
+      <button role="tab" aria-selected="false" data-f="data">Data</button>
+      <button role="tab" aria-selected="false" data-f="lead">Leadership</button>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<!-- JOURNEY -->
+<section class="block band" id="journey" data-show="general data" style="--gen:4; --data:4; --tech:9">
+  <div class="container">
+    <p class="eyebrow reveal">AI adoption</p>
+    <h2 class="big-title reveal" data-slide>Pilot to <span class="serif">policy</span> in a year.</h2>
+    <div class="journey" id="journeyEl">
+      <div class="rail"><i id="rail"></i></div>
+      <div class="step reveal"><div class="when">Jan 2026</div><p><b>Client churn-risk AI pilot.</b> Proved value on one well-governed use case first.</p></div>
+      <div class="step reveal d1"><div class="when">Mar</div><p><b>AI-assisted development</b> adopted for the technology team on a 40% business case. Measured: 70%+.</p></div>
+      <div class="step reveal d2"><div class="when">Apr</div><p><b>AI future-state paper</b> for the executive: where AI helps, where it doesn&rsquo;t, and the guardrails.</p></div>
+      <div class="step reveal d3"><div class="when">Sep</div><p><b>Microsoft 365 Copilot for every staff member</b>, with consumer AI tools blocked.</p></div>
+      <div class="step reveal d3"><div class="when">Oct</div><p><b>Enterprise AI assistant</b> approved for IT and Marketing; AI policy training reviewed.</p></div>
+    </div>
+    <div class="journey-result reveal">
+      <span class="tagpill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Approval gates</span>
+      <span class="tagpill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Data-quality gates</span>
+      <span class="tagpill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Monitoring</span>
+      <span class="tagpill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Human oversight</span>
+      <span class="tagpill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>Audit trail</span>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section class="block band" id="architecture" data-show="tech" style="--gen:9; --data:9; --tech:4">
+  <div class="container">
+    <p class="eyebrow reveal">Architecture</p>
+    <h2 class="big-title reveal" data-slide>AI-ready <span class="serif">architecture.</span></h2>
+    <p class="lede reveal">The target state I authored: every channel and AI agent working from one system of record.</p>
+    <div class="arch">
+      <div class="arch-card reveal">
+        <div class="stack" role="img" aria-label="Layered target-state architecture: channels, a shared tier, the core platform as the system of record, integrations, and legacy platforms to be retired at cutover, connected by event-driven integration.">
+          <div class="layer"><b>Channels</b><span>Frontline mobile app &middot; client and family portal &middot; AI agents</span></div>
+          <div class="link"><i></i><i class="up"></i></div>
+          <div class="layer"><b>Shared tier</b><span>One read layer serving every channel; writes staged for review</span></div>
+          <div class="link"><i></i><i class="up"></i></div>
+          <div class="layer core"><b>Core platform</b><span>One system of record for clients and workforce</span></div>
+          <div class="link"><i></i><i class="up"></i></div>
+          <div class="layer"><b>Integrations</b><span>HR and payroll &middot; finance &middot; messaging &middot; identity</span></div>
+          <div class="link quiet"><i></i></div>
+          <div class="layer legacy"><b>Legacy platforms</b><span>To be retired at cutover</span></div>
+        </div>
+      </div>
+      <div class="principles">
+        <div class="principle reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></svg></div><div><b>Event-driven, no polling</b><span>Publish, notify, re-fetch: systems learn about changes the moment they happen.</span></div></div>
+        <div class="principle reveal d1"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div><div><b>Least privilege by default</b><span>Scoped integration users, row-level security, access matched by record identity, never by name.</span></div></div>
+        <div class="principle reveal d2"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></div><div><b>Headless and MCP-ready</b><span>Business logic exposed as services, so AI agents can act through conversation, not screens.</span></div></div>
+        <div class="principle reveal d3"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/></svg></div><div><b>Privacy decided before go-live</b><span>Data-residency and privacy positions recorded before anything new holds personal data.</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="block band" id="experience" style="--gen:6; --data:6; --tech:6">
+  <div class="container">
+    <p class="eyebrow reveal">Experience</p>
+    <h2 class="big-title reveal" data-slide>The path <span class="serif">so far.</span></h2>
+    <div class="tabs reveal" role="tablist" aria-label="Experience">
+      <button role="tab" aria-selected="true" aria-controls="p-work" id="t-work">Work</button>
+      <button role="tab" aria-selected="false" aria-controls="p-edu" id="t-edu">Education &amp; credentials</button>
+    </div>
+    <div class="panel" id="p-work" role="tabpanel" aria-labelledby="t-work">
+      <div class="tl">
+        <div class="tl-item reveal">
+          <div class="org">CareChoice</div><div class="when">May 2022 &ndash; present</div>
+          <div class="roles">
+            <div>Data &amp; IT Manager <i>Jul 2023 &ndash; present</i></div>
+            <div>Acting Head of IT <i>Feb 2023 &ndash; Jul 2023</i></div>
+            <div>Data Visualisation Specialist <i>May 2022 &ndash; Jan 2023</i></div>
+          </div>
+          <div class="note">Regulated, 24/7 complex-care provider of several hundred staff. Acting Head of IT within nine months of joining; Data &amp; IT Manager within fourteen.</div>
+          <ul class="hl"><li>Runs the whole technology function: strategy, platforms, data and AI, security, service and vendors, reporting to the CEO.</li><li>Owns the technology budget: under budget two years running, with six-figure annual savings from contracts.</li><li>Nearly 70 automations, integrations and AI agents; Copilot for every staff member; payroll effort down about 60%.</li></ul>
+        </div>
+        <div class="tl-item reveal">
+          <div class="org">Wipro Technologies</div><div class="when">Jun 2021 &ndash; Apr 2022</div>
+          <div class="roles">
+            <div>Technical Lead (ICT Business Analyst) <i>Sep 2021 &ndash; Apr 2022</i></div>
+            <div>Office 365 Developer <i>Jun 2021 &ndash; Sep 2021</i></div>
+          </div>
+          <div class="note">Led delivery on a Victorian Government engagement for the Departments of Families, Fairness &amp; Housing and Health.</div>
+          <ul class="hl"><li>Housing and health services reporting: workshops with program areas, indicator definitions, role-based access on sensitive data.</li><li>Moved more than 1,000 users in a Microsoft 365 tenant migration (SharePoint and Teams).</li></ul>
+        </div>
+        <div class="tl-item reveal">
+          <div class="org">Victoria University</div><div class="when">Sep 2019 &ndash; Jul 2021</div>
+          <div class="roles"><div>Data &amp; Surveys Analyst</div></div>
+          <div class="note">Data and survey management in the university&rsquo;s Data Insights team.</div>
+          <ul class="hl"><li>Migrated the on-premise Oracle data server to Azure Synapse; initiated the move from OBIEE to Power BI and Tableau.</li><li>Single sign-on with Azure AD; ran national and institution-wide student surveys.</li><li>Machine-learning student-retention model with the chief data scientist.</li></ul>
+        </div>
+        <div class="tl-item reveal">
+          <div class="org">Ernst &amp; Young</div><div class="when">Oct 2018 &ndash; Jan 2019</div>
+          <div class="roles"><div>Systems Analyst (IT audit and controls)</div></div>
+          <div class="note">IT general controls and SOX-aligned testing for US-listed clients.</div>
+        </div>
+        <div class="tl-item reveal">
+          <div class="org">VY Tech</div><div class="when">Jul 2017 &ndash; Jun 2019</div>
+          <div class="roles"><div>BI &amp; Data Specialist</div></div>
+          <div class="note">Data and systems-integration delivery for more than 10 clients: Azure Data Factory, Data Lake, SSIS and Power BI.</div>
+        </div>
+      </div>
+    </div>
+    <div class="panel" id="p-edu" role="tabpanel" aria-labelledby="t-edu" hidden>
+      <div class="cred-grid">
+        <div class="cred"><b>Master of Business Information Systems</b><span>Monash University</span></div>
+        <div class="cred"><b>Bachelor of Business (Logistics)</b><span>RMIT University</span></div>
+        <div class="cred"><b>Salesforce Agentforce Specialist</b><span>Salesforce</span></div>
+        <div class="cred"><b>PRINCE2 Agile Expert</b><span>Foundation and Practitioner</span></div>
+        <div class="cred"><b>The Effective Manager</b><span>Victorian Chamber of Commerce and Industry</span></div>
+        <div class="cred"><b>Languages</b><span>English (professional) &middot; Chinese (native)</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- CONTACT -->
+<footer class="contact" id="contact">
+  <div class="container">
+    <h2 class="big-title reveal" data-slide>Let&rsquo;s <span class="serif">talk.</span></h2>
+    <div class="contact-grid">
+      <p class="lede reveal">Based in Melbourne and open to hybrid roles where technology, data and AI have to work in practice, for real people, under real rules. Australian permanent resident; four weeks&rsquo; notice.</p>
+      <div class="contact-list reveal d1">
+        <a class="c-item" href="mailto:cuibolun0@gmail.com" id="mail">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+          <span><small>Email</small>cuibolun0@gmail.com</span><span class="copy" id="copyHint">Copy</span>
+        </a>
+        <a class="c-item" href="https://www.linkedin.com/in/bolun-cui-18a43691/" rel="noopener" target="_blank">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.9 8.6H3.6V20h3.3zM5.2 3.5a1.9 1.9 0 1 0 0 3.8 1.9 1.9 0 0 0 0-3.8zM20.4 13.5c0-3-1.6-5.2-4.5-5.2-1.4 0-2.4.8-2.8 1.5V8.6H9.9V20h3.3v-5.9c0-1.5.6-2.6 2-2.6s1.9 1.1 1.9 2.7V20h3.3z"/></svg></span>
+          <span><small>LinkedIn</small>Bolun Cui</span>
+        </a>
+        <div class="c-item">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
+          <span><small>Based in</small>Melbourne, Victoria</span>
+        </div>
+      </div>
+    </div>
+    <div class="foot"><span>Designed and built with AI-assisted development. No cookies, no tracking.</span><span>Updated November 2026</span></div>
+  </div>
+</footer>
+
+<button class="fab" id="fab" aria-label="Ask my portfolio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></button>
+
+<dialog class="drawer" id="drawer" aria-labelledby="d-title">
+  <div class="drawer-close"><button class="icon-btn" id="dClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div class="drawer-in" id="dBody"></div>
+</dialog>
+
+<script>
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var root = document.documentElement;
+  function lens() { return root.getAttribute('data-lens') || 'general'; }
+
+
+  /* ---------- Capabilities: content (every claim traced to the profile files) ---------- */
+  var AREAS = {"strategy": {"icon": "compass", "name": "Strategy & portfolio", "one": "One front door and one roadmap for the whole business, taken to the CEO and board.", "m": ["60+", "initiatives on one roadmap"], "p": ["Single intake for all technology demand, tied to the strategic plan", "Lifecycle gates from discovery to post-implementation review, with executive sign-off", "Costed business cases to the CEO, executive and board; benefits realisation reported after go-live", "Platform options papers with costed paths for the executive", "Platform requirements prioritised as must, should and could", "ICT operating model and IT equipment policy (device tiers, three-year refresh)", "Reports to the CEO, presents to the board, sits on the ICT Committee"], "t": ["Portfolio governance", "Stage gates", "Business cases", "Board reporting"], "b": "Portfolio governance with stage gates and benefits realisation; PRINCE2 Agile Expert"}, "platforms": {"icon": "layers", "name": "Business platforms", "one": "The systems that run clients, workforce, rostering, payroll and billing, owned end to end.", "m": ["−20%", "cost, after unifying HR and recruitment"], "p": ["Multi-org Salesforce platform running clients, workforce, rostering and billing", "Replaced the HR and payroll platform end to end, live December 2024", "Frontline work moved onto the mobile app: task console, mobile forms, availability console", "App go-live stabilised in three days, with 86% support-plan acknowledgement", "Client portal on Salesforce Experience Cloud; staff portal on the HR system", "E-signature for service agreements and frontline payslips", "Telephony re-platformed with CRM integration, halving its cost"], "t": ["Salesforce", "Experience Cloud", "Agentforce", "Microsoft 365", "Mobile workforce app"]}, "integration": {"icon": "plug", "name": "Integration & architecture", "one": "Nearly 70 automations, integrations and AI agents, built to one set of standards.", "m": ["~70", "in production, across the business"], "p": ["CRM linked with HR and payroll, finance, messaging and the mobile workforce app", "Daily HR-to-CRM sync with automated reconciliation", "Billing reconciliation with the finance system; payroll journals posted to the ledger", "Documented the current-state baseline and authored the target-state architecture", "Event-driven integration with no polling; least-privilege integration users", "Headless, MCP-ready principle so AI agents can act on core services", "Sets the standards, approves designs and carries them through to cutover"], "t": ["APIs and webhooks", "Middleware", "Flow", "Apex", "Lightning Web Components"], "b": "Baseline, target state, gap analysis and roadmap; architecture principles; event-driven integration; least privilege"}, "ops": {"icon": "gear", "name": "Operations automation & compliance", "one": "Automation that gives skilled people their days back and keeps pay, workforce and clinical compliance on track.", "m": ["−60%", "payroll processing effort"], "p": ["Payroll processing effort down about 60% every cycle", "Month-end reporting fully automated: about five days a month removed", "Structured shift offers by SMS and app with automatic allocation: 14% more responses, 41% faster", "Award-compliance checks live before the 1 July cutoff, then extended to job offers", "New-year pay rates rolled over; first two pay cycles verified clean", "Compliance and scheduling automation saving about two staff-days a fortnight", "Student-visa hour caps and Working with Children Check verification automated", "Clinical plan expiry alerts across ten-plus plan types", ["Digital competency assessments across all high-intensity programs", "in user testing"]], "t": ["Award compliance", "Payroll automation", "Clinical compliance"], "b": "Automated controls with reconciliation and verification before sign-off"}, "security": {"icon": "shield", "name": "Security & resilience", "one": "Cyber, identity and continuity run to a standard, not by exception.", "m": ["100%", "of the workforce on MFA"], "p": ["Essential Eight controls in place, with the next maturity level targeted", "MFA rolled out and monitored across the whole workforce", "Identity and access on Entra ID, with starter and leaver provisioning", "Disaster recovery designed and built; roster fallback tool for business continuity", "Privacy and data-residency positions recorded before go-live", "Major-incident response, with executive updates", ["IT general controls and SOX-aligned testing for US-listed clients", "EY"]], "t": ["Essential Eight", "Entra ID", "MFA", "Disaster recovery", "IT general controls"], "b": "ACSC Essential Eight Maturity Model; identity and access management; disaster recovery"}, "service": {"icon": "coins", "name": "Service, vendors & budget", "one": "Technology spend run under budget, with partners held to account.", "m": ["2 yrs", "under budget, running"], "p": ["Drafts and manages the operating and capital technology budget", "Six-figure annual savings from contracts and licences", "Premier platform support secured at no cost", "Ran tenders and vendor selection", "Managed service provider held to service levels, with a 7-minute median resolution", "Set up service desk, incident, problem, change and IT asset management", "Licences reviewed and redundant tools retired at renewal"], "t": ["Budget ownership", "Vendor management", "ITSM", "Tendering"], "b": "ITIL 4 practices: service desk, incident, problem, change enablement, IT asset, supplier and service level management"}, "team": {"icon": "users", "name": "Leadership & team", "one": "A product-led team, and change led across the whole organisation.", "m": ["3 yrs", "of fortnightly delivery, unbroken"], "p": ["Lead a multidisciplinary product, development and data team, with a managed service provider and delivery partners", "Restructured the function into a product-led model, bringing in a product manager", "Coached the data analysts", "Fortnightly delivery cadence held for about three years", "Led the team onto AI-assisted development: business case 40% faster, measured 70%+", "Led change for the whole workforce: Microsoft 365 Copilot for everyone, and a mobile app go-live stabilised in three days", "Reports to the CEO, presents to the board, sits on the ICT Committee", "Acting Head of IT within nine months of joining; Data & IT Manager within fourteen"], "t": ["Product operating model", "PRINCE2 Agile", "Coaching", "Change leadership", "Release control"], "b": "Product operating model; Agile delivery; PRINCE2 Agile Expert; release control"}, "analytics": {"icon": "chart", "name": "Analytics & models", "one": "From what happened to what to do next.", "m": ["$1M+", "less overtime, from predictive analytics"], "p": ["Predictive workforce analytics: more than $1M less overtime, job-offer rejections roughly halved", "Client complexity scoring model feeding pricing, resourcing and funding decisions", "Continuity-of-support measure adopted as an FY27 KPI", "Funding step-down scenarios for the CFO and CEO", "Analysis behind the FY28 NDIS pricing submission", "Client churn-risk scoring", "Self-service Tableau and Power BI for managers, with KPI definitions agreed with them", ["Machine-learning student-retention model with the chief data scientist", "Victoria University"]], "t": ["Predictive modelling", "Tableau", "Power BI", "SQL", "DAX"]}, "governance": {"icon": "check", "name": "Data governance & quality", "one": "Trusted data first: owners, stewards and quality controls.", "m": ["+30%", "reporting accuracy and speed"], "p": ["Data ownership and stewardship model: owners, stewards and standards across the business", "Data-quality rules, recurring gap analysis and data-cleansing cycles", "Data-quality controls cutting manual effort by 40–90%", "One version of the numbers for the executive and board", "Role-based access on sensitive client and worker records", "Privacy and data-residency positions recorded before go-live", ["Sensitive-data handling and de-identification on Victorian Government reporting", "Wipro"]], "t": ["Data stewardship", "Data quality", "Access control", "Privacy"], "b": "DAMA-DMBOK roles: data owners and stewards; data-quality management; access control"}, "dataplatform": {"icon": "database", "name": "Data platforms & engineering", "one": "Platforms that make data fast, trusted and easy to reach.", "m": ["−80%", "reporting turnaround after the Azure rebuild"], "p": ["Reporting rebuilt on Azure Synapse, Data Lake and Data Factory", ["Migrated the on-premise Oracle data server to Azure Synapse", "Victoria University"], ["Initiated the move from OBIEE to Power BI and Tableau", "Victoria University"], "Ran legacy-to-Salesforce data migrations: mapping, cleansing, reconciliation and cutover", "Evaluating Salesforce Data Cloud and Tableau Next as the analytics foundation", "External benchmark data brought into reporting", ["Data and integration delivery for more than 10 clients", "VY Tech"]], "t": ["Azure Synapse", "Data Factory", "Data Lake", "Microsoft Fabric", "SSIS", "Data Cloud"]}, "finance": {"icon": "ledger", "name": "Finance & funding analytics", "one": "Analytics that reconcile to the ledger.", "m": ["~5 days", "a month of manual month-end work removed"], "p": ["FY27 budget and pricing analytics program for the CFO", "Billing reconciliation between the CRM and the finance system", "Payroll journals to the general ledger; FY26 year-end payroll reconciliation", "Month-end gross margin reporting, automated", "Sales and finance reporting: pipeline, signed agreements, billing reconciliation", "Commissioning submissions and funder clarification rounds", "Plan-utilisation and funding-cut cost analyses"], "t": ["Finance data", "Reconciliation", "Funding models"], "b": "Single source of truth reconciled to the ledger"}, "aiprod": {"icon": "spark", "name": "AI in production", "one": "AI agents working on live systems, not in slide decks.", "m": ["30 min", "weekly billing run, 99% less effort"], "p": ["Built an AI billing agent in Copilot Studio with a live CRM connection", "Agentforce actions: recurring tasks, a client’s jobs, uncovered shifts, task completion", "Agentforce routing of staff service requests into prioritised cases", "AI models and agents on Google Cloud", "Salesforce Agentforce Specialist certified"], "t": ["Copilot Studio", "Agentforce", "Google Cloud", "Salesforce"], "b": "Human oversight on every agent; approval gates and monitoring before and after go-live"}, "aiadopt": {"icon": "message", "name": "AI adoption & governance", "one": "From one pilot to Copilot for every staff member, with the rules settled first.", "m": ["100%", "of staff on Microsoft 365 Copilot"], "p": ["Client churn-risk AI pilot (January 2026): value proved on one governed use case first", "Microsoft 365 Copilot for every staff member from 28 September 2026, with consumer AI tools blocked", "AI future-state paper for the executive", "Enterprise AI assistant approved for IT and Marketing", "AI policy training reviewed", "Clear accountability through approval gates; data-quality gates, monitoring, human oversight and an audit trail", "Business case for on-premise AI infrastructure endorsed", ["Proactive AI risk assessment with a university research partner", "in user testing"]], "t": ["Microsoft 365 Copilot", "AI policy", "Responsible AI"], "b": "Consistent with Australia's Guidance for AI Adoption (2025): accountability, risk management, testing and monitoring, human control"}, "aidelivery": {"icon": "rocket", "name": "AI-assisted delivery", "one": "Agentic AI across the whole delivery lifecycle.", "m": ["70%+", "faster, against a 40% business case"], "p": ["Agentic AI assistants from scope and design to build, test and training", "MCP integrations and reusable agent skills that hold platform knowledge in the team", "Rostering console prototyped in three weeks", "Headless, conversational design: processes exposed through AI conversation, not screens", "Proposal to retire developer-tool licences now covered by AI-assisted development", "Human review wrapped around the practice"], "t": ["Agentic AI", "MCP", "Conversational UX"]}};
+  var CAP_PLAN = {"general": ["strategy", "team", "analytics", "aiprod", "aiadopt", "integration", "platforms", "ops"], "data": ["analytics", "governance", "dataplatform", "aiprod", "aiadopt", "team", "finance", "aidelivery"], "tech": ["strategy", "team", "platforms", "integration", "ops", "security", "service", "aiprod"]};
+  var ICONS = {"compass": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"m15.5 8.5-2 5-5 2 2-5z\"/>", "layers": "<path d=\"m12 3 9 5-9 5-9-5z\"/><path d=\"m3 13 9 5 9-5\"/>", "plug": "<path d=\"M9 7V3M15 7V3M7 7h10v4a5 5 0 0 1-10 0z\"/><path d=\"M12 16v5\"/>", "gear": "<circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1\"/>", "shield": "<path d=\"M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z\"/>", "coins": "<ellipse cx=\"12\" cy=\"6\" rx=\"7\" ry=\"3\"/><path d=\"M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6\"/>", "users": "<circle cx=\"9\" cy=\"8\" r=\"3.5\"/><path d=\"M2.5 20a6.5 6.5 0 0 1 13 0\"/><path d=\"M16 4.5a3.5 3.5 0 0 1 0 7M18.5 20a6.5 6.5 0 0 0-3-5.5\"/>", "chart": "<path d=\"M4 20V10M10 20V4M16 20v-7M22 20H2\"/>", "check": "<path d=\"M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z\"/><path d=\"m9 12 2 2 4-4\"/>", "database": "<ellipse cx=\"12\" cy=\"5\" rx=\"8\" ry=\"3\"/><path d=\"M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3\"/>", "ledger": "<rect x=\"4\" y=\"3\" width=\"16\" height=\"18\" rx=\"2\"/><path d=\"M8 8h8M8 12h8M8 16h5\"/>", "spark": "<path d=\"M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6\"/>", "message": "<path d=\"M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z\"/>", "rocket": "<path d=\"M5 15c-1 1-1.5 4-1.5 4s3-.5 4-1.5M9 15l-3-3c1-4 4-8 11-9-1 7-5 10-9 11z\"/><circle cx=\"14.5\" cy=\"9.5\" r=\"1.5\"/>"};
+  function icon(n) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + ICONS[n] + '</svg>'; }
+  function proofLi(p) { var t = typeof p === 'string' ? p : p[0], st = typeof p === 'string' ? '' : '<span class="st">' + esc(p[1]) + '</span>'; return '<li>' + esc(t) + st + '</li>'; }
+  var capWrap = document.getElementById('capWrap'), capCurrent = null;
+  function capPanel(id) {
+    var a = AREAS[id]; capCurrent = id;
+    [].forEach.call(capWrap.querySelectorAll('.cap-item'), function (b) { var on = b.getAttribute('data-id') === id; b.classList.toggle('on', on); b.setAttribute('aria-selected', on); });
+    capWrap.querySelector('.cap-panel').innerHTML = '<div class="head"><span class="cap-ic">' + icon(a.icon) + '</span><div><h3>' + esc(a.name) + '</h3><p class="one">' + esc(a.one) + '</p></div></div>' +
+      '<div class="cap-metric"><b>' + esc(a.m[0]) + '</b><span>' + esc(a.m[1]) + '</span></div>' +
+      '<ul class="ck">' + a.p.map(proofLi).join('') + '</ul>' +
+      '<div class="tools">' + a.t.map(function (x) { return '<span>' + esc(x) + '</span>'; }).join('') + '</div>' +
+      (a.b ? '<div class="practice"><b>Practice</b><span>' + esc(a.b) + '</span></div>' : '');
+  }
+  function renderCaps() {
+    var ids = CAP_PLAN[lens()];
+    capWrap.className = 'cap-a';
+    capWrap.innerHTML = '<div class="cap-list" role="tablist" aria-label="Capability areas">' + ids.map(function (id) { var a = AREAS[id];
+        return '<button class="cap-item" role="tab" data-id="' + id + '"><span class="cap-ic">' + icon(a.icon) + '</span><span><b>' + esc(a.name) + '</b><small>' + esc(a.one) + '</small></span></button>'; }).join('') + '</div>' +
+      '<div class="cap-panel" role="tabpanel" aria-live="polite"></div>';
+    capPanel(ids.indexOf(capCurrent) > -1 ? capCurrent : ids[0]);
+  }
+  capWrap.addEventListener('click', function (e) { var it = e.target.closest('.cap-item'); if (it) capPanel(it.getAttribute('data-id')); });
+
+  /* ---------- Content: case studies (every claim traced to the master profile) ---------- */
+  var CASES = [
+    { id: 'agent', f: 'ai', o: { general: 1, data: 3, tech: 5 }, feature: { general: true, data: true, tech: true },
+      cat: 'AI in production', title: 'An AI agent working on live systems',
+      teaser: 'The weekly billing run took days of manual work. Now it takes thirty minutes.',
+      metric: '30 min', metricSub: '99% less effort',
+      problem: 'The weekly billing run took days of manual work every week.',
+      did: 'Built an AI agent in Microsoft Copilot Studio that combines workflows with a live connection to our Salesforce CRM and automates the weekly billing run.',
+      result: 'Thirty minutes every week: about 99% less effort.',
+      governed: 'The same approval gates and human oversight as all our AI work.' },
+    { id: 'value', f: 'ai', o: { general: 2, data: 2, tech: 2 },
+      cat: 'AI value', title: 'Finding and proving AI value',
+      teaser: 'A value case before the build, one governed pilot, then the result measured against the promise.',
+      metric: '70%+', metricSub: 'measured, against a 40% case',
+      problem: 'AI ideas arrived from every direction. The executive needed to know which were worth building, and whether they paid off once they were live.',
+      didList: ['Found the opportunities through one front door, with every request tied to the strategic plan and prioritised in the open.',
+                'Shaped them in an AI future-state paper for the executive: where AI helps, where it doesn’t, and the guardrails.',
+                'Made the value case before the build: a costed case with the expected benefit stated up front. The AI development assistant was adopted on a case of at least 40% faster delivery.',
+                'Proved it small first, on one governed client churn-risk pilot.',
+                'Measured it after go-live: AI-assisted development came in at 70%+ faster, and the billing agent cut the weekly run to thirty minutes, about 99% less effort.',
+                'Scaled what worked: Microsoft 365 Copilot for every staff member, with consumer AI tools blocked.'],
+      result: 'Forecast and realised value side by side: AI-assisted development promised 40% and delivered 70%+, and AI went from one pilot to every staff member within a year.',
+      governed: 'Stage gates from discovery to post-implementation review, executive sign-off on costed cases, and benefits reported to the executive and board after go-live.' },
+    { id: 'policy', f: 'ai', o: { general: 3, data: 4, tech: 6 },
+      cat: 'AI adoption', title: 'AI for every staff member, rules first',
+      teaser: 'From one pilot to Microsoft 365 Copilot for every staff member, with the rules settled first.',
+      metric: '100%', metricSub: 'of staff on Copilot',
+      problem: 'The organisation needed a safe, agreed way to use AI before people reached for consumer tools on their own.',
+      didList: ['Jan 2026: ran a client churn-risk AI pilot.', 'Mar: adopted AI-assisted development for the technology team, on a business case of at least 40% faster delivery.', 'Apr: wrote the AI future-state paper for the executive.', 'Sep: rolled out Microsoft 365 Copilot to every staff member, with consumer AI tools blocked.', 'Oct: enterprise AI assistant approved for IT and Marketing; AI policy training reviewed.'],
+      result: 'AI in every staff member’s hands within a year; AI-assisted development measured at 70%+ faster.',
+      governed: 'Approval gates, data-quality gates, monitoring, human oversight and an audit trail, all settled before anything went live.' },
+    { id: 'integration', f: 'platforms', o: { general: 4, data: 5, tech: 4 },
+      cat: 'Integration and architecture', title: { general: 'Platforms that work as one', data: 'Connecting AI and automation to the enterprise', tech: 'Platforms that work as one' },
+      teaser: 'Nearly 70 automations, integrations and AI agents, and the architecture for what comes next.',
+      metric: '~70', metricSub: 'in production, across the business',
+      problem: 'Clients, workforce, rostering, payroll and billing run across several platforms that have to behave as one system.',
+      did: 'Own nearly 70 custom automations, integrations and AI agents across the business, connecting the CRM with HR and payroll, finance, messaging and the mobile workforce app. Authored the target-state architecture: layered, with event-driven integration and no polling, least-privilege integration users, and a headless, MCP-ready principle so AI agents can work against core services.',
+      result: 'Integration standards the team builds to today, and a clear target state for future platform decisions.',
+      governed: 'Row-level security, access scoped by record identity rather than name matching, and privacy and data-residency positions recorded before go-live.' },
+    { id: 'data', f: 'data', o: { general: 5, data: 1, tech: 7 }, feature: { general: true, data: true },
+      cat: 'Data and decisions', title: 'Data that changes decisions',
+      teaser: 'From inconsistent, manual reporting to models the executive acts on.',
+      metric: '$1M+', metricSub: 'less overtime',
+      problem: 'Reporting was inconsistent and largely manual, and the executive needed a forward view, not just last month.',
+      did: 'Rebuilt the reporting platform on Azure, set up data owners, stewards and quality controls, and moved analytics from what happened to what to do next: predictive workforce analytics, a client complexity scoring model and funding scenarios for the CFO and CEO.',
+      result: 'Reporting turnaround cut by about 80%; accuracy and speed up 30%; more than $1M less overtime. Complexity scoring now feeds pricing, resourcing and funding decisions.',
+      governed: 'Role-based access on sensitive records, and one version of the numbers for the executive and board.' },
+    { id: 'ops', f: 'ops', o: { general: 6, data: 6, tech: 3 },
+      cat: 'Operations', title: 'Giving people their time back',
+      teaser: 'Payroll, month-end and shift filling, redesigned so skilled people get their days back.',
+      metric: '60%', metricSub: 'less payroll effort',
+      problem: 'Payroll, month-end and filling shifts consumed days of skilled people’s time every cycle.',
+      did: 'Automated payroll processing and award-compliance checks (live before the 1 July cutoff), fully automated month-end reporting, and redesigned shift offers for a workforce that works on the road: structured offers by SMS and app with automatic allocation.',
+      result: 'Payroll processing effort down about 60% every cycle; about five days of month-end input removed each month; 14% more shift-offer responses, 41% faster.',
+      governed: 'New-year pay rates rolled over with the first two pay cycles verified clean before sign-off.' },
+    { id: 'lead', f: 'lead', o: { general: 7, data: 7, tech: 1 }, feature: { tech: true },
+      cat: 'Leadership', title: 'Running technology on leverage, not headcount',
+      teaser: 'A product-led team with partners, running technology for a 24/7 organisation and delivering every fortnight.',
+      metric: '70%+', metricSub: 'faster delivery with AI',
+      problem: 'Technology requests arrived from every part of the business with no single view of what mattered most, and the team had to deliver for an organisation that never closes.',
+      did: 'Set the direction: one front door and a 60+ initiative roadmap tied to the strategic plan, taken to the CEO, executive and board as costed cases. Restructured the function into a product-led team and brought in a product manager. Lead a multidisciplinary product, development and data team with a managed service provider and delivery partners, coach the data analysts, and led the team onto AI-assisted development.',
+      result: 'Fortnightly delivery held for about three years; AI-assisted development measured at 70%+ faster against a 40% business case; IT under budget two years running, with six-figure annual savings from contracts.',
+      governed: 'Stage gates from discovery to post-implementation review, executive sign-off on costed business cases, and benefits reported after go-live.' }
+  ];
+
+  /* ---------- Content: scripted portfolio answers ---------- */
+  var QA = [
+    { q: 'How do you get AI into production safely?', o: { general: 1, data: 2, tech: 4 }, c: 'policy',
+      a: 'Governance first, then speed. We went from a single churn-risk pilot in January to Microsoft 365 Copilot for every staff member in September, with consumer AI tools blocked. Nothing goes live without approval gates, data-quality gates, monitoring, human oversight and an audit trail.' },
+    { q: 'Show me AI saving real time.', o: { general: 2, data: 3, tech: 6 }, c: 'agent',
+      a: 'Our weekly billing run took days of manual work. I built an agent in Microsoft Copilot Studio that combines workflows with a live connection to our Salesforce CRM. It now takes thirty minutes, about 99% less effort.' },
+    { q: 'Can you make our systems work as one?', o: { general: 3, data: 4, tech: 3 }, c: 'integration',
+      a: 'I own nearly 70 automations, integrations and AI agents across the business, and I authored the target-state architecture: event-driven integration with no polling, least-privilege access, and a headless, MCP-ready principle so AI agents can reach core services.' },
+    { q: 'How do you run IT on a lean team?', o: { general: 5, data: 6, tech: 1 }, c: 'lead',
+      a: 'Leverage, not headcount: a product-led team plus a managed service provider and delivery partners, one front door and a 60+ initiative roadmap. IT has run under budget two years running, with six-figure annual savings from contracts.' },
+    { q: 'How do you turn data into decisions?', o: { general: 4, data: 1, tech: 5 }, c: 'data',
+      a: 'Trusted data first, then models people act on. Reporting turnaround fell by about 80%, predictive workforce analytics contributed to more than $1M less overtime, and a complexity scoring model now feeds pricing, resourcing and funding decisions.' },
+    { q: 'How do you prove AI is worth the investment?', o: { general: 1.5, data: 1.5, tech: 4.5 }, c: 'value',
+      a: 'A value case before the build, and the result measured after it. We adopted an AI development assistant on a case of at least 40% faster delivery and measured 70%+. AI was proved on one governed pilot before Copilot went to every staff member, and benefits go back to the executive and board after go-live.' },
+    { q: 'What kind of leader are you?', o: { general: 7, data: 7, tech: 2 }, c: 'lead',
+      a: 'I set the direction and still build alongside the team. I restructured the function into a product-led team, brought in a product manager and coach the analysts. We have delivered every fortnight for about three years, and I led the team onto AI-assisted development, measured at 70%+ faster.' },
+    { q: 'How do you get people to use new tools?', o: { general: 6, data: 5, tech: 7 }, c: 'ops',
+      a: 'Design for the person on the road. Structured shift offers by SMS and app with automatic allocation brought 14% more responses, 41% faster, and we stabilised the mobile app go-live in three days with 86% support-plan acknowledgement.' }
+  ];
+
+  var arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>';
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+  function pickTitle(t) { return typeof t === 'string' ? t : (t[lens()] || t.general); }
+
+  /* ---------- Render cases ---------- */
+  var grid = document.getElementById('grid');
+  function renderCases() {
+    var L = lens();
+    grid.innerHTML = CASES.map(function (c) {
+      var feat = [1, 7].indexOf(c.o[L]) > -1 ? ' feature' : '';  /* bento: with 7 cards, wide cards at positions 1 and 7 fill a 3-column grid evenly */
+      return '<div class="case reveal in' + feat + '" role="button" tabindex="0" aria-label="Open case study: ' + esc(pickTitle(c.title)) + '" data-f="' + c.f + '" data-id="' + c.id + '" style="order:' + c.o[L] + '">' +
+        '<span class="cat">' + esc(c.cat) + '</span><h3>' + esc(pickTitle(c.title)) + '</h3><p>' + esc(c.teaser) + '</p>' +
+        '<span class="metric"><span><b>' + esc(c.metric) + '</b><small>' + esc(c.metricSub) + '</small></span><span class="go">' + arrow + '</span></span></div>';
+    }).join('');
+    applyFilter(currentFilter);
+  }
+  grid.addEventListener('pointermove', function (e) {
+    var card = e.target.closest('.case'); if (!card) return;
+    var r = card.getBoundingClientRect();
+    card.style.setProperty('--mx', (e.clientX - r.left) + 'px'); card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  });
+  grid.addEventListener('click', function (e) { var card = e.target.closest('.case'); if (card) openCase(card.getAttribute('data-id')); });
+  grid.addEventListener('keydown', function (e) { if (e.key !== 'Enter' && e.key !== ' ') return; var card = e.target.closest('.case'); if (card) { e.preventDefault(); openCase(card.getAttribute('data-id')); } });
+
+  var currentFilter = 'all';
+  function applyFilter(f) {
+    currentFilter = f;
+    [].forEach.call(grid.children, function (el) { el.classList.toggle('hide', f !== 'all' && el.getAttribute('data-f') !== f); });
+    [].forEach.call(document.querySelectorAll('#filters button'), function (b) { b.setAttribute('aria-selected', b.getAttribute('data-f') === f ? 'true' : 'false'); });
+  }
+  document.getElementById('filters').addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) applyFilter(b.getAttribute('data-f')); });
+
+  /* ---------- Case drawer ---------- */
+  var drawer = document.getElementById('drawer'), dBody = document.getElementById('dBody');
+  function openCase(id) {
+    var c = CASES.filter(function (x) { return x.id === id; })[0]; if (!c) return;
+    var did = c.didList ? '<ul>' + c.didList.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>' : esc(c.did);
+    dBody.innerHTML = '<span class="cat">' + esc(c.cat) + '</span><h3 id="d-title">' + esc(pickTitle(c.title)) + '</h3><dl>' +
+      '<dt>The problem</dt><dd>' + esc(c.problem) + '</dd><dt>What I did</dt><dd>' + did + '</dd>' +
+      '<dt>Result</dt><dd class="result">' + esc(c.result) + '</dd><dt>Governed by</dt><dd>' + esc(c.governed) + '</dd></dl>';
+    if (typeof drawer.showModal === 'function') drawer.showModal(); else drawer.setAttribute('open', '');
+  }
+  document.getElementById('dClose').addEventListener('click', function () { drawer.close(); });
+  drawer.addEventListener('click', function (e) { if (e.target === drawer) drawer.close(); });
+
+  /* ---------- Scripted chat ---------- */
+  var prompts = document.getElementById('prompts'), chat = document.getElementById('chat'), busy = false;
+  function renderPrompts() {
+    var L = lens();
+    prompts.innerHTML = QA.slice().sort(function (a, b) { return a.o[L] - b.o[L]; }).map(function (x) {
+      return '<button class="prompt" data-q="' + QA.indexOf(x) + '"><span>' + esc(x.q) + '</span>' + arrow + '</button>';
+    }).join('');
+  }
+  function bubble(cls, html) { var d = document.createElement('div'); d.className = 'msg ' + cls; d.innerHTML = html; chat.appendChild(d); chat.scrollTop = chat.scrollHeight; return d; }
+  function greet() {
+    chat.innerHTML = '';
+    var g = { general: 'Hi, I’m Eric. I lead technology, data and AI, and I still build. Pick a question on the left.',
+              data: 'Hi, I’m Eric. I turn data into decisions and put AI to work on live systems. Pick a question on the left.',
+              tech: 'Hi, I’m Eric. I run technology for a 24/7 organisation on a lean team. Pick a question on the left.' }[lens()];
+    bubble('bot', esc(g));
+  }
+  function ask(i) {
+    if (busy) return; busy = true;
+    var x = QA[i];
+    [].forEach.call(prompts.children, function (b) { b.classList.toggle('on', +b.getAttribute('data-q') === i); });
+    bubble('me', esc(x.q));
+    if (window.innerWidth < 980) document.querySelector('.device').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+    var t = bubble('bot', '<span class="typing"><i></i><i></i><i></i></span>'); t.style.padding = '0';
+    setTimeout(function () {
+      t.style.padding = '';
+      if (reduce) { t.innerHTML = esc(x.a); finish(t, x); return; }
+      var words = x.a.split(' '), n = 0; t.textContent = '';
+      var iv = setInterval(function () {
+        n++; t.textContent = words.slice(0, n).join(' '); chat.scrollTop = chat.scrollHeight;
+        if (n >= words.length) { clearInterval(iv); finish(t, x); }
+      }, 28);
+    }, reduce ? 0 : 750);
+  }
+  function finish(t, x) {
+    var b = document.createElement('button'); b.className = 'open'; b.innerHTML = 'Open the case study ' + arrow;
+    b.addEventListener('click', function () { openCase(x.c); });
+    t.appendChild(document.createElement('br')); t.appendChild(b); chat.scrollTop = chat.scrollHeight; busy = false;
+  }
+  prompts.addEventListener('click', function (e) { var b = e.target.closest('.prompt'); if (b) ask(+b.getAttribute('data-q')); });
+
+  /* ---------- Rotating role line ---------- */
+  var ROT = { general: ['AI agents in production', 'platforms that work as one', 'governance that says yes', 'building alongside the team'],
+              data: ['data that changes decisions', 'AI agents in production', 'one version of the numbers', 'governance that says yes'],
+              tech: ['IT under budget, two years running', 'one front door for every request', 'platforms that work as one', 'Acting Head of IT within nine months'] };
+  var rotEl = document.getElementById('rotator'), rotTimer;
+  function startRotator() {
+    clearTimeout(rotTimer);
+    var words = ROT[lens()], wi = 0, ci = words[0].length, del = true;
+    rotEl.textContent = words[0];
+    if (reduce) return;
+    function tick() {
+      var w = words[wi];
+      if (del) { ci--; rotEl.textContent = w.slice(0, ci); if (ci <= 0) { del = false; wi = (wi + 1) % words.length; } rotTimer = setTimeout(tick, 32); }
+      else { var nw = words[wi]; ci++; rotEl.textContent = nw.slice(0, ci); if (ci >= nw.length) { del = true; rotTimer = setTimeout(tick, 2200); } else rotTimer = setTimeout(tick, 55); }
+    }
+    rotTimer = setTimeout(tick, 2600);
+  }
+
+  /* ---------- Reveal, counters, bars ---------- */
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (!en.isIntersecting) return;
+      var el = en.target; el.classList.add('in'); io.unobserve(el);
+      el.querySelectorAll && el.querySelectorAll('[data-count]').forEach(count);
+      if (el.matches('[data-count]')) count(el);
+      el.querySelectorAll && el.querySelectorAll('.bar i').forEach(function (b) { b.style.width = b.getAttribute('data-w') + '%'; });
+    });
+  }, { threshold: 0.18 });
+  function count(el) {
+    if (el.__done) return; el.__done = true;
+    var to = parseFloat(el.getAttribute('data-count')), dec = +(el.getAttribute('data-dec') || 0), pre = el.getAttribute('data-pre') || '';
+    var v = el.querySelector('.v'), t0 = null, dur = 1400;
+    if (reduce) { v.textContent = pre + to.toFixed(dec); return; }
+    function step(ts) { if (!t0) t0 = ts; var p = Math.min(1, (ts - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+      v.textContent = pre + (to * e).toFixed(dec); if (p < 1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  }
+  function revealInView(vh) {
+    document.querySelectorAll('.reveal:not(.in)').forEach(function (el) {
+      var r = el.getBoundingClientRect(); if (r.width === 0 && r.height === 0) return;
+      if (r.top < vh * 0.92 && r.bottom > 0) { el.classList.add('in'); el.querySelectorAll('[data-count]').forEach(count); el.querySelectorAll('.bar i').forEach(function (b) { b.style.width = b.getAttribute('data-w') + '%'; }); }
+    });
+  }
+  function observeAll() { document.querySelectorAll('.reveal:not(.in), .stat, .ba').forEach(function (el) { io.observe(el); }); }
+
+  /* ---------- Scroll effects: nav, progress, sliding titles, journey rail, active link ---------- */
+  var nav = document.getElementById('nav'), prog = document.getElementById('progress'), fab = document.getElementById('fab');
+  var slides = [].slice.call(document.querySelectorAll('[data-slide]'));
+  var links = [].slice.call(document.querySelectorAll('#links a'));
+  var journeyEl = document.getElementById('journeyEl'), rail = document.getElementById('rail');
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(function () {
+      ticking = false;
+      var y = window.scrollY, h = document.documentElement.scrollHeight - innerHeight, vh = innerHeight;
+      nav.classList.toggle('solid', y > vh * 0.7);
+      revealInView(vh);
+      prog.style.transform = 'scaleX(' + (h > 0 ? y / h : 0) + ')';
+      fab.classList.toggle('show', y > vh * 1.2);
+      if (!reduce) slides.forEach(function (el) {
+        var r = el.getBoundingClientRect(); if (r.bottom < -200 || r.top > vh + 200) return;
+        var p = (r.top + r.height / 2) / vh; el.style.transform = 'translateX(' + ((p - 0.5) * 6) + 'vw)';
+      });
+      var jr = journeyEl.getBoundingClientRect(), jp = Math.max(0, Math.min(1, (vh * 0.8 - jr.top) / (jr.height + vh * 0.2)));
+      rail.style.width = (jp * 100) + '%'; journeyEl.style.setProperty('--h', (jp * 100) + '%');
+      [].forEach.call(journeyEl.querySelectorAll('.step'), function (s, i, all) { s.classList.toggle('lit', jp >= (i + 0.5) / all.length); });
+      var cur = '';
+      links.forEach(function (a) { var s = document.querySelector(a.getAttribute('href')); if (s && s.getBoundingClientRect().top < vh * 0.4) cur = a.getAttribute('href'); });
+      links.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === cur); });
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true }); window.addEventListener('resize', onScroll);
+  fab.addEventListener('click', function () { document.getElementById('ask').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' }); });
+
+  /* ---------- Experience tabs ---------- */
+  var tw = document.getElementById('t-work'), te = document.getElementById('t-edu'), pw = document.getElementById('p-work'), pe = document.getElementById('p-edu');
+  function tab(work) { tw.setAttribute('aria-selected', work); te.setAttribute('aria-selected', !work); pw.hidden = !work; pe.hidden = work; }
+  tw.addEventListener('click', function () { tab(true); }); te.addEventListener('click', function () { tab(false); });
+
+  /* ---------- Theme ---------- */
+  document.getElementById('themeBtn').addEventListener('click', function () {
+    var cur = root.getAttribute('data-theme');
+    var dark = cur ? cur === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var next = dark ? 'light' : 'dark'; root.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (e) {}
+  });
+
+  /* ---------- Copy email ---------- */
+  var mail = document.getElementById('mail'), hint = document.getElementById('copyHint');
+  hint.addEventListener('click', function (e) {
+    e.preventDefault(); e.stopPropagation();
+    var done = function () { hint.textContent = 'Copied'; setTimeout(function () { hint.textContent = 'Copy'; }, 1600); };
+    if (navigator.clipboard) navigator.clipboard.writeText('cuibolun0@gmail.com').then(done, function () {});
+  });
+
+  /* ---------- Marquee: duplicate track for a seamless loop ---------- */
+  var track = document.getElementById('track'); track.innerHTML += track.innerHTML;
+
+  /* ---------- Hero network canvas ---------- */
+  (function net() {
+    var cv = document.getElementById('net'), ctx = cv.getContext('2d'), pts = [], W, H, dpr = Math.min(2, window.devicePixelRatio || 1), running = true, raf;
+    function size() { W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var n = Math.round(Math.min(90, W * H / 16000)); pts = [];
+      for (var i = 0; i < n; i++) pts.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .28, vy: (Math.random() - .5) * .28, r: Math.random() * 1.6 + .6, a: Math.random() < .14 }); }
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      for (var i = 0; i < pts.length; i++) { var p = pts[i];
+        if (!reduce) { p.x += p.vx; p.y += p.vy; if (p.x < 0 || p.x > W) p.vx *= -1; if (p.y < 0 || p.y > H) p.vy *= -1; }
+        for (var j = i + 1; j < pts.length; j++) { var q = pts[j], dx = p.x - q.x, dy = p.y - q.y, d = dx * dx + dy * dy;
+          if (d < 15000) { ctx.strokeStyle = 'rgba(227,166,89,' + (0.16 * (1 - d / 15000)) + ')'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke(); } }
+        ctx.fillStyle = p.a ? 'rgba(99,196,203,.9)' : 'rgba(243,239,232,.55)'; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.283); ctx.fill(); }
+      if (running && !reduce) raf = requestAnimationFrame(draw);
+    }
+    size(); draw();
+    window.addEventListener('resize', function () { size(); if (reduce) draw(); });
+    new IntersectionObserver(function (e) { running = e[0].isIntersecting; if (running && !reduce) { cancelAnimationFrame(raf); raf = requestAnimationFrame(draw); } }).observe(cv);
+  })();
+
+  /* ---------- Version-dependent pieces ---------- */
+  function applyLens() { renderCaps(); renderCases(); renderPrompts(); greet(); startRotator(); observeAll(); onScroll(); }
+  window.__onLens = applyLens;
+  applyLens();
+  setTimeout(function () { revealInView(innerHeight); }, 1200);
+})();
+</script>
+</body>
+</html>
